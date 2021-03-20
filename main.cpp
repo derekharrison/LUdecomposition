@@ -11,9 +11,9 @@
 
 double** mat2D(int nx, int ny);
 void lu_decomposition(double** A,
-		              int N,
-		              double** L,
-		              double** U);
+                      int N,
+                      double** L,
+                      double** U);
 
 int main(int argc, char* argv[]) {
 
@@ -68,42 +68,42 @@ double** mat2D(int nx, int ny) {
 }
 
 void lu_decomposition(double** A,
-		              int N,
-		              double** L,
-		              double** U) {
+                      int N,
+                      double** L,
+                      double** U) {
 
-	/* Initialize L */
+    /* Initialize L */
     for(int i = 0; i < N; ++i) {
-    	for(int j = 0; j < N; ++j) {
-    		if(i == j) {
-    			L[i][j] = 1.0;
-    		}
-    		else {
-    			L[i][j] = 0.0;
-    		}
-    	}
+        for(int j = 0; j < N; ++j) {
+            if(i == j) {
+                L[i][j] = 1.0;
+            }
+            else {
+                L[i][j] = 0.0;
+            }
+        }
     }
 
     /* Initialize U */
     for(int i = 0; i < N; ++i) {
-    	for(int j = 0; j < N; ++j) {
-    		if(i > j) {
-    			U[i][j] = 0.0;
-    		}
-    	}
+        for(int j = 0; j < N; ++j) {
+            if(i > j) {
+                U[i][j] = 0.0;
+            }
+        }
     }
 
     /* LU decomposition */
     for(int k = 0; k < N; ++k) {
-    	U[k][k] = A[k][k];
-    	for(int i = k + 1; i < N; ++i) {
-    		L[i][k] = A[i][k] / U[k][k];
-    		U[k][i] = A[k][i];
-    	}
-		for(int i = k + 1; i < N; ++i) {
-			for(int j = k + 1; j < N; ++j) {
-				A[i][j] = A[i][j] - L[i][k]*U[k][j];
-			}
-		}
+        U[k][k] = A[k][k];
+        for(int i = k + 1; i < N; ++i) {
+            L[i][k] = A[i][k] / U[k][k];
+            U[k][i] = A[k][i];
+        }
+        for(int i = k + 1; i < N; ++i) {
+            for(int j = k + 1; j < N; ++j) {
+                A[i][j] = A[i][j] - L[i][k]*U[k][j];
+            }
+        }
     }
 }
